@@ -1,0 +1,1 @@
+# optipic-prestashop
