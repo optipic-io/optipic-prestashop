@@ -16,7 +16,7 @@ class ImgUrlConverter {
     /**
      * Library version number
      */
-    const VERSION = '1.15';
+    const VERSION = '1.19';
     
     /**
      * ID of your site on CDN OptiPic.io service
@@ -47,6 +47,8 @@ class ImgUrlConverter {
     public static $baseUrl = false;
     
     public static $enableLog = false;
+    
+    public static $cdnDomain = 'cdn.optipic.io';
     
     /**
      * Constructor
@@ -120,8 +122,8 @@ class ImgUrlConverter {
             
             /*$firstPartsOfUrl = array();
             foreach(self::$whitelistImgUrls as $whiteImgUrl) {
-                if(substr($whiteImgUrl, -1, 1)=='/') {
-                    $whiteImgUrl = substr($whiteImgUrl, 0, -1);
+                if(self::substr($whiteImgUrl, -1, 1)=='/') {
+                    $whiteImgUrl = self::substr($whiteImgUrl, 0, -1);
                 }
                 $firstPartsOfUrl[] = preg_quote($host.$whiteImgUrl, '#');
             }
@@ -180,9 +182,23 @@ class ImgUrlConverter {
                 array('\'', '\''), // '<url>'
                 array('\(', '\)'), // (<url>)
             );
+            
+            $cdnDomains = array(
+                'cdn.optipic.io',
+            );
+            
+            $cdnDomains[] = self::$cdnDomain;
+            $cdnDomains = array_unique($cdnDomains);
+            
+            $cdnDomainsForRegexp = array();
+            foreach($cdnDomains as $cdnDomain) {
+                $cdnDomainsForRegexp[] = '\/\/'.preg_quote($cdnDomain, '#');
+            }
+            $cdnDomainsForRegexp = implode("|", $cdnDomainsForRegexp);
+            
             $regexp = array();
             foreach($urlBorders as $border) {
-                $regexp[] = '#('.$border[0].')'.$host.'('.$firstPartOfUrl.'(?!\/\/cdn\.optipic\.io)[^'.$border[1].']+\.(png|jpg|jpeg){1}(\?[^"\'\s]*?)?)('.$border[1].')#siS';
+                $regexp[] = '#('.$border[0].')'.$host.'('.$firstPartOfUrl.'(?!'.$cdnDomainsForRegexp.')[^'.$border[1].']+\.(png|jpg|jpeg){1}(\?[^"\'\s]*?)?)('.$border[1].')#siS';
             }
             //var_dump($regexp);exit;
             
@@ -198,13 +214,15 @@ class ImgUrlConverter {
         
         self::$baseUrl = false;
         
+        $content = str_replace('<head>', '<head>' . PHP_EOL . self::getPreloadTags(), $content);
+        
         if($gziped) {
             $content = gzencode($content);
             
             // modify Content-Length if it's already sent
             $headersList = self::getResponseHeadersList();
             if(is_array($headersList) && !empty($headersList['Content-Length'])) {
-                header('Content-Length: ' . strlen($content));
+                header('Content-Length: ' . self::strlen($content));
             }
         }
         
@@ -213,6 +231,15 @@ class ImgUrlConverter {
         
         return $content;
     }
+    
+    
+    
+    public static function getPreloadTags() {
+        return '<link href="//'.self::$cdnDomain.'/preload.css" rel="stylesheet">' . PHP_EOL
+               . '<link rel="preload" href="//'.self::$cdnDomain.'/preload.png" as="image">';
+    }
+    
+    
     
     public static function trimList($list) {
         $trimmed = array();
@@ -272,6 +299,10 @@ class ImgUrlConverter {
                     self::$enableLog = true;
                 }
             }
+            
+            if(!empty($source['cdn_domain'])) {
+                self::$cdnDomain = $source['cdn_domain'];
+            }
         }
         elseif(file_exists($source)) {
             $config = require($source);
@@ -292,8 +323,8 @@ class ImgUrlConverter {
         }
         // check rules with mask
         foreach(self::$exclusionsUrl as $exclUrl) {
-            if(substr($exclUrl, -1)=='*') {
-                $regexp = "#^".substr($exclUrl, 0, -1)."#i";
+            if(self::substr($exclUrl, -1)=='*') {
+                $regexp = "#^".self::substr($exclUrl, 0, -1)."#i";
                 if(preg_match($regexp, $url)) {
                     return false;
                 }
@@ -326,7 +357,7 @@ class ImgUrlConverter {
             }
         }
         
-        $ext = pathinfo($parseUrl['path'], PATHINFO_EXTENSION);
+        $ext = strtolower(pathinfo($parseUrl['path'], PATHINFO_EXTENSION));
         if(!in_array($ext, array('png', 'jpg', 'jpeg'))) {
             return $replaceWithoutOptiPic; 
         }
@@ -338,18 +369,18 @@ class ImgUrlConverter {
         $urlOriginal = self::getUrlFromRelative($urlOriginal, self::$baseUrl);
         
         
-        $replaceWithOptiPic = $matches[1].'//cdn.optipic.io/site-'.self::$siteId.$urlOriginal.$matches[5];
+        $replaceWithOptiPic = $matches[1].'//'.self::$cdnDomain.'/site-'.self::$siteId.$urlOriginal.$matches[5];
         
         self::log($urlOriginal, 'callbackForPregReplace -> url original:');
         self::log($replaceWithOptiPic, 'callbackForPregReplace -> url with optipic:');
         
-        if(substr($urlOriginal, 0, 7)=='http://') {
+        if(self::substr($urlOriginal, 0, 7)=='http://') {
             return $replaceWithoutOptiPic;
         }
-        if(substr($urlOriginal, 0, 8)=='https://') {
+        if(self::substr($urlOriginal, 0, 8)=='https://') {
             return $replaceWithoutOptiPic;
         }
-        if(substr($urlOriginal, 0, 2)=='//') {
+        if(self::substr($urlOriginal, 0, 2)=='//') {
             return $replaceWithoutOptiPic;
         }
         
@@ -389,7 +420,7 @@ class ImgUrlConverter {
             $convertedUrl = self::convertHtml($toConvertUrl);
             if($toConvertUrl!=$convertedUrl) {
                 $isConverted = true;
-                $listConverted[] = trim(substr($convertedUrl, 1, -1).' '.$size);
+                $listConverted[] = trim(self::substr($convertedUrl, 1, -1).' '.$size);
             }
         }
         
@@ -418,15 +449,19 @@ class ImgUrlConverter {
      * Check if gziped data
      */
     public static function isGz($str) {
-        if (strlen($str) < 2) return false;
-        return (ord(substr($str, 0, 1)) == 0x1f && ord(substr($str, 1, 1)) == 0x8b);
+        if (self::strlen($str) < 2) return false;
+        return (ord(self::substr($str, 0, 1)) == 0x1f && ord(self::substr($str, 1, 1)) == 0x8b);
     }
     
     public static function getUrlFromRelative($relativeUrl, $baseUrl=false) {
-        if(substr($relativeUrl, 0, 1)=='/') {
+        if(stripos($relativeUrl, '../')!==false) {
+            $relativeUrl = self::resolveFilename($relativeUrl);
+        }
+        
+        if(self::substr($relativeUrl, 0, 1)=='/') {
             return $relativeUrl;
         }
-        if(substr($relativeUrl, 0, 2)=='\/') { // for json-encoded urls when / --> \/
+        if(self::substr($relativeUrl, 0, 2)=='\/') { // for json-encoded urls when / --> \/
             return $relativeUrl;
         }
         
@@ -434,9 +469,27 @@ class ImgUrlConverter {
             //$baseUrl = pathinfo($_SERVER['REQUEST_URI'], PATHINFO_DIRNAME);
             $baseUrl = self::getBaseDirOfUrl($_SERVER['REQUEST_URI']);
         }
-        $baseUrl .= '/';
+        //$baseUrl .= '/';
+        
         $url = str_replace('//', '/', $baseUrl.$relativeUrl);
         return $url;
+    }
+    
+    
+    
+    public static function resolveFilename($filename) {
+        $filename = str_replace('//', '/', $filename);
+        $parts = explode('/', $filename);
+        $out = array();
+        foreach ($parts as $part){
+            if ($part == '.') continue;
+            if ($part == '..') {
+                array_pop($out);
+                continue;
+            }
+            $out[] = $part;
+        }
+        return implode('/', $out);
     }
     
     
@@ -452,24 +505,37 @@ class ImgUrlConverter {
             return '/';
         }
         $urlPath = $urlParsed['path'];
+        $baseUrl = $urlPath;
         $pathinfo = pathinfo($urlPath);
         if(!empty($pathinfo['extension'])) {
-            return $pathinfo['dirname'];
+            $baseUrl = $pathinfo['dirname'];
         }
-        return $urlPath;
+        
+        if(stripos($url, $baseUrl.'/')!==false) {
+            $baseUrl .= '/';
+        }
+        
+        if(self::substr($baseUrl, -1)!='/') {
+            $pathinfo = pathinfo($baseUrl);
+            if(!empty($pathinfo['dirname'])) {
+                $baseUrl = $pathinfo['dirname'];
+            }
+        }
+        
+        return $baseUrl;
     }
     
     public static function getBaseUrlFromHtml($html) {
-        preg_match('#(?P<tag>base)(?P<prefix>[^>]*)\s+href=(?P<base_url>[^>\s]+)#isS', $html, $matches);
+        preg_match('#(?P<tag><base)(?P<prefix>[^>]*)\s+href=(?P<base_url>[^>\s]+)#isS', $html, $matches);
         
         $baseUrl = false;
         if(!empty($matches['base_url'])) {
             $baseUrl = trim($matches['base_url'], '"/');
             $baseUrl = trim($baseUrl, "'");
             $baseUrl = self::getBaseDirOfUrl($baseUrl);
-            if(strlen($baseUrl)>0 && substr($baseUrl, -1, 1)!='/') {
+            /*if(self::strlen($baseUrl)>0 && self::substr($baseUrl, -1, 1)!='/') {
                 $baseUrl .= '/';
-            }
+            }*/
         }
         return $baseUrl;
     }
@@ -549,11 +615,24 @@ class ImgUrlConverter {
         $currentHost = trim($currentHost[0]);
         if($trimWww) {
             if(stripos($currentHost, 'www.')===0) {
-                $currentHost = substr($currentHost, 4);
+                $currentHost = self::substr($currentHost, 4);
             }
         }
         
         return $currentHost;
+    }
+    
+    
+    public static function strlen($str) {
+        return \Tools::strlen($str);
+    }
+    
+    
+    public static function substr($string, $offset, $length = null) {
+        if(is_null($length)) {
+            $length = false;
+        }
+        return \Tools::substr($string, $offset, $length);
     }
 }
 ?>

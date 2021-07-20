@@ -29,7 +29,7 @@ class Optipic extends Module
     public function __construct()
     {
         $this->name = 'optipic';
-        $this->version = '1.15.0';
+        $this->version = '1.19.0';
         $this->author = 'Optipic.io';
         $this->tab = 'seo';
         $this->need_instance = 0;
@@ -277,7 +277,14 @@ class Optipic extends Module
             $settings = $this->getSettings();
             
             if ($currentHost) {
-                return '<script src="https://optipic.io/api/cp/stat?domain='.$currentHost.'&sid='.$settings['site_id'].'&cms=prestashop&stype=cdn&append_to=%23configuration_form&version='.$this->version.'"></script> ';
+                
+                Media::addJsDef(array(
+                    'optipicCurrentHost' => $currentHost,
+                    'optipicSid' => $settings['site_id'],
+                    'optipicVersion' => $this->version,
+                ));
+                
+                $this->context->controller->addJS(_MODULE_DIR_ . $this->name . '/js/settings.js');
             }
         }
     }
