@@ -29,7 +29,7 @@ class Optipic extends Module
     public function __construct()
     {
         $this->name = 'optipic';
-        $this->version = '1.19.0';
+        $this->version = '1.19.1';
         $this->author = 'Optipic.io';
         $this->tab = 'seo';
         $this->need_instance = 0;
@@ -219,11 +219,11 @@ class Optipic extends Module
         
         
         
-        if(empty($helper->fields_value[self::SRCSET_ATTRS])) {
+        if (empty($helper->fields_value[self::SRCSET_ATTRS])) {
             $helper->fields_value[self::SRCSET_ATTRS] = implode(PHP_EOL, \optipic\cdn\ImgUrlConverter::getDefaultSettings('srcset_attrs'));
         }
         
-        if(empty($helper->fields_value[self::DOMAINS])) {
+        if (empty($helper->fields_value[self::DOMAINS])) {
             $helper->fields_value[self::DOMAINS] = implode(PHP_EOL, \optipic\cdn\ImgUrlConverter::getDefaultSettings('domains'));
         }
 
@@ -277,14 +277,13 @@ class Optipic extends Module
             $settings = $this->getSettings();
             
             if ($currentHost) {
-                
                 Media::addJsDef(array(
                     'optipicCurrentHost' => $currentHost,
                     'optipicSid' => $settings['site_id'],
                     'optipicVersion' => $this->version,
                 ));
                 
-                $this->context->controller->addJS(_MODULE_DIR_ . $this->name . '/js/settings.js');
+                $this->context->controller->addJS(_MODULE_DIR_ . $this->name . '/views/js/settings.js');
             }
         }
     }

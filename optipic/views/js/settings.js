@@ -1,3 +1,14 @@
+/**
+* 2007-2021 OptiPic
+*
+* NOTICE OF LICENSE
+*
+* PrestaShop module to integrate with OptiPic.io service to optimize site images.
+*
+*  @author    OptiPic.io <info@optipic.io>
+*  @copyright 2007-2021 OptiPic
+*  @license   http://www.opensource.org/licenses/mit-license.html  MIT License
+*/
 (function() {
     
     if(
