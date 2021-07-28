@@ -29,8 +29,8 @@ class Optipic extends Module
     public function __construct()
     {
         $this->name = 'optipic';
-        $this->version = '1.19.1';
-        $this->author = 'Optipic.io';
+        $this->version = '1.19.2';
+        $this->author = 'OptiPic';
         $this->tab = 'seo';
         $this->need_instance = 0;
         $this->ps_versions_compliancy = [
@@ -43,7 +43,7 @@ class Optipic extends Module
         parent::__construct();
 
         $this->displayName = $this->l('OptiPic');
-        $this->description = $this->l('OptiPic.io - image optimization via smart CDN. The module automates the process of optimizing and compressing all images on the site according to the recommendations of Google PageSpeed Insights.');
+        $this->description = $this->l('OptiPic - image optimization via smart CDN. The module automates the process of optimizing and compressing all images on the site according to the recommendations of Google PageSpeed Insights.');
 
         $this->confirmUninstall = $this->l('Are you sure you want to uninstall?');
     }

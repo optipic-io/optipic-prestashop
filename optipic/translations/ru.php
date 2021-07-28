@@ -3,7 +3,7 @@ global $_MODULE;
 $_MODULE = [];
 
 //for optipic.php
-$_MODULE['<{optipic}prestashop>optipic_' . md5('OptiPic.io - image optimization via smart CDN. The module automates the process of optimizing and compressing all images on the site according to the recommendations of Google PageSpeed Insights.')] = 'OptiPic.io - оптимизация изображений через умный CDN. Модуль автоматизирует процесс оптимизации и сжатия всех изображений на сайте согласно рекомендациям Google PageSpeed Insights.';
+$_MODULE['<{optipic}prestashop>optipic_' . md5('OptiPic - image optimization via smart CDN. The module automates the process of optimizing and compressing all images on the site according to the recommendations of Google PageSpeed Insights.')] = 'OptiPic - оптимизация изображений через умный CDN. Модуль автоматизирует процесс оптимизации и сжатия всех изображений на сайте согласно рекомендациям Google PageSpeed Insights.';
 $_MODULE['<{optipic}prestashop>optipic_' . md5('Are you sure you want to uninstall?')] = 'Вы уверены, что хотите удалить?';
 $_MODULE['<{optipic}prestashop>optipic_' . md5('Invalid Configuration value')] = 'Неверное значение конфигурации';
 $_MODULE['<{optipic}prestashop>optipic_' . md5('Settings updated')] = 'Настройки обновлены';
