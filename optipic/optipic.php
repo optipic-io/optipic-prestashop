@@ -237,7 +237,7 @@ class Optipic extends Module
             'autoreplace_active' => Configuration::get(self::AUTOREPLACE_ACTIVE, false),
             'site_id' => Configuration::get(self::SITE_ID, ''),
             'domains' => Configuration::get(self::DOMAINS, ''),
-            //!='' ? explode("\n", str_replace(array("\r\n", "\n", "\r"), PHP_EOL, Configuration::get(self::DOMAINS, ''))) : array(),
+            // !='' ? explode("\n", str_replace(array("\r\n", "\n", "\r"), PHP_EOL, Configuration::get(self::DOMAINS, ''))) : array(),
             'exclusions_url' => Configuration::get(self::EXCLUSIONS_URL, ''),
             //!='' ? explode("\n", str_replace(array("\r\n", "\n", "\r"), PHP_EOL, Configuration::get(self::EXCLUSIONS_URL, ''))) : array(),
             'whitelist_img_urls' => Configuration::get(self::WHITELIST_IMG_URL, ''),
