@@ -29,7 +29,7 @@ class Optipic extends Module
     public function __construct()
     {
         $this->name = 'optipic';
-        $this->version = '1.19.2';
+        $this->version = '1.26.0';
         $this->author = 'OptiPic';
         $this->tab = 'seo';
         $this->need_instance = 0;
