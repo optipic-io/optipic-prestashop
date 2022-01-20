@@ -15,7 +15,9 @@ if (!defined('_PS_VERSION_')) {
     exit;
 }
 
-include_once dirname(__FILE__).'/classes/ImgUrlConverter.php';
+if (class_exists('\optipic\cdn\ImgUrlConverter') == false) {
+    include_once dirname(__FILE__).'/classes/ImgUrlConverter.php';
+}
 
 class Optipic extends Module
 {
