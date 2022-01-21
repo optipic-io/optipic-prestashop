@@ -31,7 +31,7 @@ class Optipic extends Module
     public function __construct()
     {
         $this->name = 'optipic';
-        $this->version = '1.26.0';
+        $this->version = '1.29.0';
         $this->author = 'OptiPic';
         $this->tab = 'seo';
         $this->need_instance = 0;
@@ -283,6 +283,7 @@ class Optipic extends Module
                     'optipicCurrentHost' => $currentHost,
                     'optipicSid' => $settings['site_id'],
                     'optipicVersion' => $this->version,
+                    'optipicSource' => \optipic\cdn\ImgUrlConverter::getDownloadSource(),
                 ));
                 
                 $this->context->controller->addJS(_MODULE_DIR_ . $this->name . '/views/js/settings.js');
