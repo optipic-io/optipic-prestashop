@@ -27,11 +27,12 @@ class Optipic extends Module
     const EXCLUSIONS_URL = 'OPTIPIC_EXCLUSIONS_URL';
     const WHITELIST_IMG_URL = 'OPTIPIC_WHITELIST_IMG_URL';
     const SRCSET_ATTRS = 'OPTIPIC_SRCSET_ATTRS';
+    const CDN_DOMAIN = 'OPTIPIC_CDN_DOMAIN';
 
     public function __construct()
     {
         $this->name = 'optipic';
-        $this->version = '1.29.0';
+        $this->version = '1.29.1';
         $this->author = 'OptiPic';
         $this->tab = 'seo';
         $this->need_instance = 0;
@@ -60,6 +61,7 @@ class Optipic extends Module
             !Configuration::updateValue(self::EXCLUSIONS_URL, '') ||
             !Configuration::updateValue(self::WHITELIST_IMG_URL, '') ||
             !Configuration::updateValue(self::SRCSET_ATTRS, '') ||
+            !Configuration::updateValue(self::CDN_DOMAIN, '') ||
             !$this->registerHook('actionOutputHTMLBefore') ||
             !$this->registerHook('displayBackOfficeHeader')
         ) {
@@ -79,6 +81,7 @@ class Optipic extends Module
             || !Configuration::deleteByName(self::EXCLUSIONS_URL)
             || !Configuration::deleteByName(self::WHITELIST_IMG_URL)
             || !Configuration::deleteByName(self::SRCSET_ATTRS)
+            || !Configuration::deleteByName(self::CDN_DOMAIN)
         ) {
             return false;
         }
@@ -99,6 +102,7 @@ class Optipic extends Module
             $settings['exclusions_url']= (string) Tools::getValue(self::EXCLUSIONS_URL);
             $settings['whitelist_img_urls']= (string) Tools::getValue(self::WHITELIST_IMG_URL);
             $settings['srcset_attrs']= (string) Tools::getValue(self::SRCSET_ATTRS);
+            $settings['cdn_domain']= (string) Tools::getValue(self::CDN_DOMAIN);
 
             if (!Validate::isGenericName($settings['autoreplace_active'])
                 || !Validate::isGenericName($settings['site_id'])
@@ -106,6 +110,7 @@ class Optipic extends Module
                 || !Validate::isGenericName($settings['exclusions_url'])
                 || !Validate::isGenericName($settings['whitelist_img_urls'])
                 || !Validate::isGenericName($settings['srcset_attrs'])
+                || !Validate::isGenericName($settings['cdn_domain'])
             ) {
                 $output .= $this->displayError($this->l('Invalid Configuration value'));
             } else {
@@ -186,6 +191,13 @@ class Optipic extends Module
                     'rows' => 3,
                     'desc' => $this->l('List of tag attributes, in which you need to replace srcset-markup of images. Each on a new line'),
                 ],
+                [
+                    'type' => 'text',
+                    'label' => $this->l('CDN domain'),
+                    'desc' => $this->l('Domain through which CDN OptiPic will work. You can use your subdomain (img.yourdomain.com, optipic.yourdomain.com, etc.) instead of the standard cdn.optipic.io. To connect your subdomain, contact OptiPic technical support.'),
+                    'name' => self::CDN_DOMAIN,
+                    'size' => 20
+                ],
             ],
             'submit' => [
                 'title' => $this->l('Save'),
@@ -218,6 +230,7 @@ class Optipic extends Module
         $helper->fields_value[self::EXCLUSIONS_URL] = Tools::getValue(self::EXCLUSIONS_URL, Configuration::get(self::EXCLUSIONS_URL));
         $helper->fields_value[self::WHITELIST_IMG_URL] = Tools::getValue(self::WHITELIST_IMG_URL, Configuration::get(self::WHITELIST_IMG_URL));
         $helper->fields_value[self::SRCSET_ATTRS] = Tools::getValue(self::SRCSET_ATTRS, Configuration::get(self::SRCSET_ATTRS));
+        $helper->fields_value[self::CDN_DOMAIN] = Tools::getValue(self::CDN_DOMAIN, Configuration::get(self::CDN_DOMAIN));
         
         
         
@@ -246,6 +259,7 @@ class Optipic extends Module
             //!='' ? explode("\n", str_replace(array("\r\n", "\n", "\r"), PHP_EOL, Configuration::get(self::WHITELIST_IMG_URL, ''))) : array(),
             'srcset_attrs' => Configuration::get(self::SRCSET_ATTRS, ''),
             //!='' ? explode("\n", str_replace(array("\r\n", "\n", "\r"), PHP_EOL, Configuration::get(self::SRCSET_ATTRS, ''))) : array(),
+            'cdn_domain' => Configuration::get(self::CDN_DOMAIN, ''),
         );
     }
 
@@ -258,6 +272,7 @@ class Optipic extends Module
         Configuration::updateValue(self::EXCLUSIONS_URL, $settings['exclusions_url']);
         Configuration::updateValue(self::WHITELIST_IMG_URL, $settings['whitelist_img_urls']);
         Configuration::updateValue(self::SRCSET_ATTRS, $settings['srcset_attrs']);
+        Configuration::updateValue(self::CDN_DOMAIN, $settings['cdn_domain']);
     }
 
     public function hookActionOutputHTMLBefore(array $params)

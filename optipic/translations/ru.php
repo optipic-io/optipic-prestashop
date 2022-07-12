@@ -21,5 +21,5 @@ $_MODULE['<{optipic}prestashop>optipic_' . md5('Each on a new line and must star
 $_MODULE['<{optipic}prestashop>optipic_' . md5('Replace only URLs of images starting with a mask')] = 'Подменять только URL изображений, начинающихся с маски';
 $_MODULE['<{optipic}prestashop>optipic_' . md5('List of "srcset" attributes')] = 'Список "srcset" атрибутов';
 $_MODULE['<{optipic}prestashop>optipic_' . md5('List of tag attributes, in which you need to replace srcset-markup of images. Each on a new line')] = 'Список атрибутов тегов, в которых нужно заменить srcset-разметку изображений. Каждый на новой строке';
-
-
+$_MODULE['<{optipic}prestashop>optipic_' . md5('CDN domain')] = 'CDN домен';
+$_MODULE['<{optipic}prestashop>optipic_' . md5('Domain through which CDN OptiPic will work. You can use your subdomain (img.yourdomain.com, optipic.yourdomain.com, etc.) instead of the standard cdn.optipic.io. To connect your subdomain, contact OptiPic technical support.')] = 'Домен через который будет работать CDN OptiPic. Вы можете использовать поддомен вашего домена (img.yourdomain.com, optipic.yourdomain.com и т.п.) вместо стандартного cdn.optipic.io. Для подключению своего поддомена обратитесь в техподдержку OptiPic.';
