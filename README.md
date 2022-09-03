@@ -9,9 +9,9 @@
 
 - [181 reviews](https://optipic.io/en/cdn/reviews/) ⭐⭐⭐⭐⭐
 - According to recommendations Google PageSpeed Insights
-- Easy connection in 5 minutes
-- Video instruction in 2 minutes
-- Free technical support + installation help
+- [Easy connection in 5 minutes](https://www.youtube.com/watch?v=a0UHWb9mjnQ)
+- [Video instruction in 2 minutes](https://www.youtube.com/watch?v=a0UHWb9mjnQ)
+- [Free technical support + installation help](https://optipic.io/get-free-help/?cdn=1)
 
 ## Smart WebP convertation on the fly
 > What does OptiPic CDN do when trying to request an image from it:
