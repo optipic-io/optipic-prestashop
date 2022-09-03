@@ -53,28 +53,42 @@ Change other plugin settings if necessary
 ## Description of plugin settings
 
 - **Site ID in your personal account CDN OptiPic**
-  > You can find out your website ID in your CDN OptiPic personal account. Add your site to your account if you have not already done so. To turn off auto-fidelity, just clear the site ID.
+  ```
+  You can find out your website ID in your CDN OptiPic personal account. 
+  Add your site to your account if you have not already done so. 
+  To turn off auto-fidelity, just clear the site ID.
+  ```
 
 * **Domain list (if images are loaded via absolute URL)**
-  > Each on a new line and without specifying the protocol (http/https).
-  > Examples:
-  > mydomain.com
-  > www.mydomain.com
+  ```
+  Each on a new line and without specifying the protocol (http/https).
+  Examples:
+  mydomain.com
+  www.mydomain.com
+  ```
 
 * **Site pages that do not include auto-replace**
 Each on a new line and must start with a slash (/)
 **Replace only URLs of images starting with a mask**
-  > Each on a new line and must start with a slash (/)
-  > Examples:
-  > /upload/
-  > /upload/test.jpeg
+  ```
+  Each on a new line and must start with a slash (/)
+  Examples:
+  /upload/
+  /upload/test.jpeg
+  ```
 
 * **List of 'srcset' attributes**
-  > List of tag attributes, in which you need to replace srcset-markup of images
-  > What is srcset?
-  > Examples:
-  > srcset
-  > data-srcset
+  ```
+  List of tag attributes, in which you need to replace srcset-markup of images
+  What is srcset? 
+  Examples: 
+  srcset 
+  data-srcset 
+  ```
 
 * **CDN domain**
-  > Domain through which CDN OptiPic will work. You can use your subdomain (img.yourdomain.com, optipic.yourdomain.com, etc.) instead of the standard cdn.optipic.io. To connect your subdomain, contact OptiPic technical support.
+  ```
+  Domain through which CDN OptiPic will work. 
+  You can use your subdomain (img.yourdomain.com, optipic.yourdomain.com, etc.) instead of the standard cdn.optipic.io. 
+  To connect your subdomain, contact OptiPic technical support.
+  ```
