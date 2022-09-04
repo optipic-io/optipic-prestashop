@@ -2,9 +2,9 @@
 
 > Fully automated process for converting all png and jpeg images to WebP format to the requirements of Google Pagespeed Insights. Solves the problem 'Serve images in next-gen formats'. Easy connection to PrestaShop.
 
- **[[Download plugin]](https://github.com/optipic-io/optipic-prestashop/releases/download/v1.29.1/optipic-prestashop-v1.29.1.zip)**
+[![Download](https://optipic.io/images/download-button.png)](https://github.com/optipic-io/optipic-prestashop/releases/download/v1.29.1/optipic-prestashop-v1.29.1.zip)
 
-## How to convert to WebP all the images on the PrestaShop
+## How to convert to WebP all the images on the PrestaShop 
 > CDN OptiPic — simple solution to the problem "Serve images in next-gen formats"
 
 - [181 reviews](https://optipic.io/en/cdn/reviews/) ⭐⭐⭐⭐⭐
@@ -27,10 +27,10 @@
 *Convertation to Webp and image compression occurs in the background and does not slow down the opening of images on the browser.
 If the optimized version is not yet ready at the time of the image request, the original version is returned without any processing.*
 
-[![Download](https://optipic.io/images/download-button-w200.png)](https://github.com/optipic-io/optipic-prestashop/releases/download/v1.29.1/optipic-prestashop-v1.29.1.zip)
+[![Download](https://optipic.io/images/download-button.png)](https://github.com/optipic-io/optipic-prestashop/releases/download/v1.29.1/optipic-prestashop-v1.29.1.zip)
 
 ## Video instruction for configuring the module PrestaShop
-[![IMAGE ALT TEXT HERE](https://img.youtube.com/vi/a0UHWb9mjnQ/0.jpg)](https://www.youtube.com/watch?v=a0UHWb9mjnQ)
+[![Video instruction for configuring the module PrestaShop](https://img.youtube.com/vi/a0UHWb9mjnQ/0.jpg)](https://www.youtube.com/watch?v=a0UHWb9mjnQ)
 
 ## 5 easy steps to connect WebP to PrestaShop
 ### Step #1: Download plugin PrestaShop WebP
@@ -38,9 +38,11 @@ Download and install the official CDN OptiPic plugin for PrestaShop on your site
 
 ### Step #2: Sign up for OptiPic CDN
 Register in your OptiPic CDN account and add a new site to your CDN control panel.
+![Step 1](https://optipic.io/img/cdn/install-instruction/en/step-2.png)
 
 ### Step #3: Copy site ID
 Copy the ID of the created website to the clipboard (Ctrl + C)
+![Step 1](https://optipic.io/img/cdn/install-instruction/en/step-3.png)
 
 ### Step #4: Paste the site ID into the plugin PrestaShop WebP
 Go to the settings page of the previously installed plugin on your site.
@@ -68,8 +70,11 @@ Change other plugin settings if necessary
   ```
 
 * **Site pages that do not include auto-replace**
-Each on a new line and must start with a slash (/)
-**Replace only URLs of images starting with a mask**
+  ```
+  Each on a new line and must start with a slash (/)
+  ```
+
+* **Replace only URLs of images starting with a mask**
   ```
   Each on a new line and must start with a slash (/)
   Examples:
