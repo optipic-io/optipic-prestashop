@@ -1,6 +1,8 @@
 # WebP convert images PrestaShop in 2 clicks - OptiPic CDN ready plugin
 
-> Fully automated process for converting all png and jpeg images to WebP format to the requirements of Google Pagespeed Insights. Solves the problem 'Serve images in next-gen formats'. Easy connection to PrestaShop.
+> Fully automated process for converting all png and jpeg images to WebP format to the requirements of Google Pagespeed Insights. Solves the problem 'Serve images in next-gen formats'. Easy connection to PrestaShop. 
+
+[https://optipic.io/en/webp/prestashop/](https://optipic.io/en/webp/prestashop/)
 
 [![Download](https://optipic.io/images/download-button.png)](https://github.com/optipic-io/optipic-prestashop/releases/download/v1.29.1/optipic-prestashop-v1.29.1.zip)
 
@@ -33,6 +35,7 @@ If the optimized version is not yet ready at the time of the image request, the 
 [![Video instruction for configuring the module PrestaShop](https://img.youtube.com/vi/a0UHWb9mjnQ/0.jpg)](https://www.youtube.com/watch?v=a0UHWb9mjnQ)
 
 ## 5 easy steps to connect WebP to PrestaShop
+
 ### Step #1: Download plugin PrestaShop WebP
 Download and install the official CDN OptiPic plugin for PrestaShop on your site.
 
