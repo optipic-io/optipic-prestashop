@@ -4,6 +4,23 @@
 > Solves the problem "Serve images in next-gen formats".  
 > Easy connection to PrestaShop. 
 
+<sup>|</sup>
+<sup>[English](https://optipic.io/en/webp/prestashop/) | </sup>
+<sup>[Español](https://optipic.io/es/webp/prestashop/) | </sup>
+<sup>[Deutsch](https://optipic.io/de/webp/prestashop/) | </sup>
+<sup>[Türk](https://optipic.io/tr/webp/prestashop/) | </sup>
+<sup>[Français](https://optipic.io/fr/webp/prestashop/) | </sup>
+<sup>[Italiano](https://optipic.io/it/webp/prestashop/) | </sup>
+<sup>[Português](https://optipic.io/pt/webp/prestashop/) | </sup>
+<sup>[Polski](https://optipic.io/pl/webp/prestashop/) | </sup>
+<sup>[Čeština](https://optipic.io/cz/webp/prestashop/) | </sup>
+<sup>[Русский](https://optipic.io/ru/webp/prestashop/) | </sup>
+<sup>[Беларуская](https://optipic.io/by/webp/prestashop/) | </sup>
+<sup>[中国](https://optipic.io/cn/webp/prestashop/) | </sup>
+<sup>[日本](https://optipic.io/jp/webp/prestashop/) | </sup>
+<sup>[বেঙ্গল](https://optipic.io/bn/webp/prestashop/) | </sup>
+<sup>[한국인](https://optipic.io/ko/webp/prestashop/) | </sup>
+
 [https://optipic.io/en/webp/prestashop/](https://optipic.io/en/webp/prestashop/)
 
 [![Download](https://optipic.io/images/download-button.png)](https://github.com/optipic-io/optipic-prestashop/releases/download/v1.29.1/optipic-prestashop-v1.29.1.zip)
